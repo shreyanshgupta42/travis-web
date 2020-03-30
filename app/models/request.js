@@ -58,8 +58,10 @@ export default Model.extend({
   isDraft: equal('pullRequestMergeable', PULL_REQUEST_MERGEABLE.DRAFT),
 
   messages: computed('repo.id', 'build.request.id', 'fetchMessages.last.value', function () {
+    const repoId = this.get('repo.id');
+    const requestId = this.get('build.request.id');
     const messages = this.fetchMessages.get('lastSuccessful.value');
-    if (!messages) {
+    if (repoId && requestId && !messages) {
       this.fetchMessages.perform();
     }
     return messages || [];
