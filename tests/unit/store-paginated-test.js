@@ -133,51 +133,42 @@ module('Unit | store.paginated', function (hooks) {
     });
   });
 
-  test('it sorts results and live updates the first page', function (assert) {
-    let store = this.owner.lookup('service:store');
+  test('it sorts results and live updates the first page', async function (assert) {
+    const store = this.owner.lookup('service:store');
 
-    run(() => {
-      store.push({
-        data: {
-          id: 1,
-          type: 'repo',
-          attributes: { }
-        }
-      });
+    await store.push({
+      data: {
+        id: 1,
+        type: 'repo',
+        attributes: { }
+      }
     });
 
     store.query = function () {
       assert.ok('store.query was called');
 
-      let queryResult = ArrayProxy.create({ content: [] });
+      const queryResult = ArrayProxy.create({ content: [] });
       queryResult.set('meta', {});
       queryResult.set('meta.pagination', { count: 1, limit: 1, offset: 0 });
 
       return resolve(queryResult);
     };
 
-    let result = store.paginated('repo', {},
-      { filter: () => true, sort: 'id:desc' });
+    let collection = await store.paginated('repo', {}, { filter: () => true, sort: 'id:desc' });
 
-    let done = assert.async();
+    assert.deepEqual(collection.toArray().map((r) => r.get('id')), ['1']);
 
-    result.then((collection) => {
-      done();
-
-      assert.deepEqual(collection.toArray().map((r) => r.get('id')), ['1']);
-
-      run(() => {
-        store.push({
-          data: {
-            id: 2,
-            type: 'repo',
-            attributes: { }
-          }
-        });
-      });
-
-      assert.deepEqual(collection.toArray().map((r) => r.get('id')), ['2']);
+    await store.push({
+      data: {
+        id: 2,
+        type: 'repo',
+        attributes: { }
+      }
     });
+
+    collection = await store.paginated('repo', {}, { filter: () => true, sort: 'id:desc' });
+
+    assert.deepEqual(collection.toArray().map((r) => r.get('id')), ['2']);
   });
 
   test('it updates pagination data when forceReload is set to true', function (assert) {
