@@ -2,15 +2,12 @@ import Component from '@ember/component';
 import config from 'travis/config/environment';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import { reads } from '@ember/object/computed';
 
 export default Component.extend({
   api: service(),
   flashes: service(),
 
   tagName: '',
-
-  cacheType: reads('cache.type'),
 
   delete: task(function* () {
     if (config.skipConfirmations || confirm('Are you sure?')) {

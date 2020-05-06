@@ -1,20 +1,20 @@
-<li class="cache-item {{this.cacheType}}">
+<li class="cache-item {{@cache.type}}">
   <div class="row-item row-branch">
-    <RequestIcon @event={{this.cache.type}} />
+    <RequestIcon @event={{@cache.type}} />
     <span class="label-align">
-      {{this.cache.branch}}
+      {{@cache.branch}}
     </span>
   </div>
   <div class="row-item row-calendar">
     <SvgImage @name="icon-calendar" @class="icon" />
     <span class="label-align">
-      {{format-time this.cache.last_modified}}
+      {{format-time @cache.last_modified}}
     </span>
   </div>
   <div class="row-item row-size">
     {{svg-jar "icon-scales" class="icon"}}
     <span class="label-align">
-      {{travis-mb this.cache.size}}MB
+      {{travis-mb @cache.size}}MB
     </span>
   </div>
   <div class="row-item">
@@ -22,7 +22,6 @@
       class="{{if this.delete.isRunning "deleting"}} pointer delete-cache-icon"
       title="Delete this cache"
       {{on 'click' (perform this.delete)}}
-      onclick={{action "performDelete"}}
     >
       <EmberTooltip @text="Delete" />
       <SvgImage @name="icon-trash" @class="icon" />
