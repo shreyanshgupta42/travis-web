@@ -41,6 +41,14 @@
   }
 }
 
+.underline-if-active {
+  text-decoration: none;
+
+  &.active, .active & {
+    text-decoration: underline;
+  }
+}
+
 // Overrides
 .tailwind-overrides {
   @apply overflow-x-hidden;

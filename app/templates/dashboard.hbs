@@ -1,13 +1,10 @@
 <Layouts::Center>
   <div class="dashboard-repos">
-    <section
-      data-test-dashboard-starred-repositories
-      class="dashboard-section dashboard-starred"
-    >
-      <h2 class="small-title">
+    <UiKit::Box @tag='section' data-test-dashboard-starred-repositories="true">
+      <UiKit::Text @color='blue-light' @margin={{hash bottom=2}} @size='2xl'>
         Starred repositories
-      </h2>
-      <ul class="repo-list">
+      </UiKit::Text>
+      <UiKit::Box>
         {{#each this.starredRepos as |repo|}}
           <DashboardRow @repo={{repo}} @star={{this.star}} @unstar={{this.unstar}} />
         {{else}}
@@ -16,20 +13,20 @@
             You can keep track of your favorite repositories here once you start starring!
           </div>
         {{/each}}
-      </ul>
-    </section>
+      </UiKit::Box>
+    </UiKit::Box>
   </div>
   <header class="dashboard tabs">
-    <h2 class="small-title">
-      <LinkTo @route="dashboard.repositories" data-test-active-repos-tab="true">
+    <LinkTo @route="dashboard.repositories" data-test-active-repos-tab="true">
+      <UiKit::Text @color='blue-light' @margin={{hash bottom=2 right=4}} @size='2xl' class="underline-if-active">
         Active repositories
-      </LinkTo>
-    </h2>
-    <h2 class="small-title">
-      <LinkTo @route="dashboard.builds" data-test-my-builds-tab="true">
+      </UiKit::Text>
+    </LinkTo>
+    <LinkTo @route="dashboard.builds" data-test-my-builds-tab="true">
+      <UiKit::Text @color='blue-light' @margin={{hash bottom=2}} @size='2xl' class="underline-if-active">
         My builds
-      </LinkTo>
-    </h2>
+      </UiKit::Text>
+    </LinkTo>
   </header>
   {{outlet}}
 </Layouts::Center>
