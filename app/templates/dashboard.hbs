@@ -8,10 +8,16 @@
         {{#each this.starredRepos as |repo|}}
           <DashboardRow @repo={{repo}} @star={{this.star}} @unstar={{this.unstar}} />
         {{else}}
-          <div class="starred-empty">
-            <SvgImage @name="icon-star" @class="icon--m" />
-            You can keep track of your favorite repositories here once you start starring!
-          </div>
+          <UiKit::Box
+            @borderColor='grey-light'
+            @borderWidth={{hash all='xs'}}
+            @padding={{hash all=8}}
+          >
+            <UiKit::Text @color='grey'>
+              <SvgImage @name='icon-star' @class='w-6 inline-block' />
+              You can keep track of your favorite repositories here once you start starring!
+            </UiKit::Text>
+          </UiKit::Box>
         {{/each}}
       </UiKit::Box>
     </UiKit::Box>
