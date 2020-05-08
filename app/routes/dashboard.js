@@ -1,8 +1,9 @@
 import { hash } from 'rsvp';
 import TravisRoute from 'travis/routes/basic';
 import { inject as service } from '@ember/service';
+import TailwindBaseMixin from 'travis/mixins/tailwind-base';
 
-export default TravisRoute.extend({
+export default TravisRoute.extend(TailwindBaseMixin, {
   needsAuth: true,
 
   features: service(),

@@ -1,0 +1,9 @@
+<UiKit::Box ...attributes>
+  <TopBar />
+  <FlashDisplay />
+  <UiKit::Box @padding={{hash x=4 y=20}} role="main">
+    <UiKit::Box @margin={{hash x='auto'}} class="container">
+      {{yield}}
+    </UiKit::Box>
+  </UiKit::Box>
+</UiKit::Box>
