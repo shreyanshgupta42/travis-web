@@ -112,6 +112,8 @@ const VARIANTS = {
   P: 'p',
   LINK_BLUE: 'link-blue',
   LINK_UNDER: 'link-underlined',
+  TAB_BLUE: 'tab-blue',
+  TAB_BLUE_ACTIVE: 'tab-blue-active',
 };
 const VARIANT_PROPS = {
   [VARIANTS.SMALLCAPS]: {
@@ -140,6 +142,17 @@ const VARIANT_PROPS = {
   },
   [VARIANTS.LINK_UNDER]: {
     borderWidth: { bottom: 'px' },
+  },
+  [VARIANTS.TAB_BLUE]: {
+    color: 'blue-light',
+    margin: { right: 2 },
+    size: 'xl',
+  },
+  [VARIANTS.TAB_BLUE_ACTIVE]: {
+    color: 'blue-light',
+    margin: { right: 2 },
+    size: 'xl',
+    line: 'under',
   },
 };
 

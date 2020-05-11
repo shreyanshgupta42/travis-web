@@ -1,7 +1,7 @@
 <Layouts::Center>
-  <div class="dashboard-repos">
+  <UiKit::Box @margin={{hash bottom=6}}>
     <UiKit::Box @tag='section' data-test-dashboard-starred-repositories="true">
-      <UiKit::Text @color='blue-light' @margin={{hash bottom=2}} @size='2xl'>
+      <UiKit::Text @color='blue-light' @margin={{hash bottom=2}} @size='xl'>
         Starred repositories
       </UiKit::Text>
       <UiKit::Box>
@@ -21,18 +21,24 @@
         {{/each}}
       </UiKit::Box>
     </UiKit::Box>
-  </div>
-  <header class="dashboard tabs">
-    <LinkTo @route="dashboard.repositories" data-test-active-repos-tab="true">
-      <UiKit::Text @color='blue-light' @margin={{hash bottom=2 right=4}} @size='2xl' class="underline-if-active">
-        Active repositories
-      </UiKit::Text>
-    </LinkTo>
-    <LinkTo @route="dashboard.builds" data-test-my-builds-tab="true">
-      <UiKit::Text @color='blue-light' @margin={{hash bottom=2}} @size='2xl' class="underline-if-active">
-        My builds
-      </UiKit::Text>
-    </LinkTo>
-  </header>
+  </UiKit::Box>
+  <UiKit::Box @margin={{hash bottom=2}}>
+    <UiKit::Link
+      @route='dashboard.repositories'
+      @variant='tab-blue'
+      @activeVariant='tab-blue-active'
+      data-test-active-repos-tab="true"
+    >
+      Active Repositories
+    </UiKit::Link>
+    <UiKit::Link
+      @route='dashboard.builds'
+      @variant='tab-blue'
+      @activeVariant='tab-blue-active'
+      data-test-active-repos-tab="true"
+    >
+      My builds
+    </UiKit::Link>
+  </UiKit::Box>
   {{outlet}}
 </Layouts::Center>

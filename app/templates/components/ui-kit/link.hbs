@@ -1,13 +1,12 @@
-{{#if this.route ~}}
+{{#if @route ~}}
   <LinkTo
-    @route={{this.route}}
-    class={{this.allClasses}}
+    @route={{@route}}
     ...attributes
   >
     {{~ '' ~}}
     <UiKit::Text
       @tag='span'
-      @variant={{this.variant}}
+      @variant={{this.currentVariant}}
     >
       {{~yield~}}
     </UiKit::Text>
