@@ -1,14 +1,15 @@
 import Service, { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 import { computed } from '@ember/object';
-import { reads, or } from '@ember/object/computed';
+import { notEmpty, reads, or } from '@ember/object/computed';
 import config from 'travis/config/environment';
 
 export default Service.extend({
   store: service(),
 
-  loaded: false,
   loading: reads('loadConfigs.isRunning'),
+  loaded: notEmpty('record'),
+  record: reads('loadConfigs.lastSuccessful.value'),
   config: reads('record.config'),
   rawConfigs: reads('record.rawConfigs'),
   jobConfigs: reads('record.jobConfigs'),
@@ -25,7 +26,7 @@ export default Service.extend({
       const repo = yield this.store.findRecord('repo', data.repo.get('id'));
       const record = this.store.createRecord('request-preview', { ...data, repo });
       yield record.save();
-      this.setProperties({ record: record, loaded: true });
+      return record;
     } catch (e) {
       // TODO for some reason this still logs the 400 request as an error to the console
       this.handleLoadConfigError(e);
@@ -40,6 +41,6 @@ export default Service.extend({
   },
 
   reset() {
-    this.set('loaded', false);
+    this.loadConfigs.cancelAll({ resetState: true });
   }
 });
